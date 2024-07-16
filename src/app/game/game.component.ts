@@ -1,27 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { ActivatedRoute } from "@angular/router";
 
-//token
 const AUTH_ENDPOINT =
-  'https://nuod0t2zoe.execute-api.us-east-2.amazonaws.com/FT-Classroom/spotify-auth-token';
-const TOKEN_KEY = 'whos-who-access-token';
+  "https://nuod0t2zoe.execute-api.us-east-2.amazonaws.com/FT-Classroom/spotify-auth-token";
+const TOKEN_KEY = "whos-who-access-token";
 
 @Component({
-  selector: 'app-game',
-  templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css'],
+  selector: "app-game",
+  templateUrl: "./game.component.html",
+  styleUrls: ["./game.component.css"],
 })
 export class GameComponent implements OnInit {
-  token: string = '';
+  token: string = "";
   songs: any[] = [];
   currentSong: any = null;
   options: string[] = [];
-  correctAnswer: string = '';
+  correctAnswer: string = "";
+  selectedGenre: string = "";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.authenticate();
+    this.route.paramMap.subscribe(params => {
+      this.selectedGenre = params.get('genre') || '';
+      this.authenticate();
+    });
   }
 
   async authenticate() {
@@ -34,9 +38,7 @@ export class GameComponent implements OnInit {
         return;
       }
     }
-    const { access_token, expires_in } = await this.http
-      .get<any>(AUTH_ENDPOINT)
-      .toPromise();
+    const { access_token, expires_in } = await this.http.get<any>(AUTH_ENDPOINT).toPromise();
     const newToken = {
       value: access_token,
       expiration: Date.now() + (expires_in - 20) * 1000,
@@ -47,15 +49,12 @@ export class GameComponent implements OnInit {
   }
 
   async loadSongs() {
-    const endpoint =
-      'https://api.spotify.com/v1/search?q=';
+    const endpoint = `https://api.spotify.com/v1/search?q=genre:${this.selectedGenre}&type=track&limit=10`;
     const headers = {
       Authorization: `Bearer ${this.token}`,
     };
-    const response = await this.http
-      .get<any>(endpoint, { headers })
-      .toPromise();
-    this.songs = response.tracks;
+    const response = await this.http.get<any>(endpoint, { headers }).toPromise();
+    this.songs = response.tracks.items;
     this.loadNextSong();
   }
 
@@ -68,16 +67,14 @@ export class GameComponent implements OnInit {
 
     // Play song preview
     const audio = new Audio(this.currentSong.preview_url);
-    audio.play();
+    // audio.play();
   }
 
   generateOptions(correct: string): string[] {
     const options = new Set<string>();
     options.add(correct);
     while (options.size < 4) {
-      const randomArtist =
-        this.songs[Math.floor(Math.random() * this.songs.length)].artists[0]
-          .name;
+      const randomArtist = this.songs[Math.floor(Math.random() * this.songs.length)].artists[0].name;
       options.add(randomArtist);
     }
     return Array.from(options).sort(() => Math.random() - 0.5);
@@ -85,9 +82,9 @@ export class GameComponent implements OnInit {
 
   checkAnswer(selectedOption: string) {
     if (selectedOption === this.correctAnswer) {
-      alert('Correct!');
+      alert("Correct!");
     } else {
-      alert('Wrong! The correct answer was ' + this.correctAnswer);
+      alert("Wrong! The correct answer was " + this.correctAnswer);
     }
     this.loadNextSong();
   }

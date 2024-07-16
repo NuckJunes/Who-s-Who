@@ -8,12 +8,16 @@ import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
 import { GameComponent } from './game/game.component';
 
-const routes: Routes = [{ path: "", component: HomeComponent }];
+const routes: Routes = [
+  { path: "", component: HomeComponent },
+  {path: 'game/:genre', component:GameComponent}
+];
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, GameComponent],
   imports: [BrowserModule, FormsModule, RouterModule.forRoot(routes), HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
+  exports: [RouterModule]
 })
 export class AppModule {}

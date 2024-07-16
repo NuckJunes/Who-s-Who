@@ -19,10 +19,9 @@ export class HomeComponent implements OnInit {
   selectedGenre: String = '';
   authLoading: boolean = false;
   configLoading: boolean = false;
-  token: String = '';
-  difficulty: String = '';
-  lives: number = 0;
-  questionNum: number = 0;
+  token: String = "";
+  difficulty: String = "";
+  username: String = "";
 
   ngOnInit(): void {
     this.authLoading = true;
@@ -104,10 +103,11 @@ export class HomeComponent implements OnInit {
     // // });
     // // console.log(response.tracks.items);
 
-    // this.settings.updateGenre(this.selectedGenre);
-    // this.settings.updateDifficulty(this.difficulty);
+    this.settings.updateGenre(this.selectedGenre);
+    this.settings.updateDifficulty(this.difficulty);
+    this.settings.updateUsername(this.username);
 
-    // //this.router.navigateByUrl('/game')
-    // console.log(this.selectedGenre + " " + this.difficulty);
+    //this.router.navigateByUrl('/game')
+    console.log(this.selectedGenre + " " + this.difficulty + " " + this.username);
   }
 }

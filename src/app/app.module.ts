@@ -6,16 +6,17 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
-import { GameComponent } from './game/game.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { LeaderboardPlayerComponent } from './leaderboard/leaderboard-player/leaderboard-player.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
-  {path: 'game/:genre', component:GameComponent}
+  { path: "leaderboard", component: LeaderboardComponent }
 ];
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, GameComponent],
-  imports: [BrowserModule, FormsModule, RouterModule.forRoot(routes), HttpClientModule],
+  declarations: [AppComponent, HomeComponent, LeaderboardComponent, LeaderboardPlayerComponent],
+  imports: [BrowserModule, FormsModule, RouterModule.forRoot(routes)],
   providers: [],
   bootstrap: [AppComponent],
   exports: [RouterModule]

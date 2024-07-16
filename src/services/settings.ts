@@ -12,6 +12,9 @@ export class settings {
     private difficultySource = new BehaviorSubject<String>('');
     difficulty = this.difficultySource.asObservable();
 
+    private usernameSource = new BehaviorSubject<String>('');
+    username = this.usernameSource.asObservable();
+
     // private questionNumSource = new BehaviorSubject<number>(0);
     // questionNum = this.questionNumSource.asObservable();
 
@@ -24,6 +27,10 @@ export class settings {
 
     updateDifficulty(newDifficulty: String) {
         this.difficultySource.next(newDifficulty);
+    }
+
+    updateUsername(newUsername: String) {
+        this.usernameSource.next(newUsername);
     }
 
     // updateQuestionNum(newQuestionNum: number) {

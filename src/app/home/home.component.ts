@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import fetchFromSpotify, { request } from "../../services/api";
+import { Router } from "@angular/router";
+import { settings } from "../../services/settings";
 
 const AUTH_ENDPOINT =
   "https://nuod0t2zoe.execute-api.us-east-2.amazonaws.com/FT-Classroom/spotify-auth-token";
@@ -11,13 +13,16 @@ const TOKEN_KEY = "whos-who-access-token";
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  constructor(private settings: settings, private router: Router) {}
 
   genres: String[] = ["House", "Alternative", "J-Rock", "R&B"];
   selectedGenre: String = "";
   authLoading: boolean = false;
   configLoading: boolean = false;
   token: String = "";
+  difficulty: String = "";
+  lives: number = 0;
+  questionNum: number = 0;
 
   ngOnInit(): void {
     this.authLoading = true;
@@ -78,5 +83,31 @@ export class HomeComponent implements OnInit {
     this.selectedGenre = selectedGenre;
     console.log(this.selectedGenre);
     console.log(TOKEN_KEY);
+  }
+
+  onRadioChanged(dif: String) {
+    this.difficulty = dif;
+    this.updateSettings();
+  }
+
+  updateSettings() {
+
+  }
+
+  async startGame() {
+    // Here I will take the genre and get a list of tracks to send to game component
+    // let qString = "genre:'" + this.selectedGenre + "'";
+    // const response = await fetchFromSpotify({
+    //   token: this.token,
+    //   endpoint: "search",
+    //   params: { type: "track", q: qString}
+    // });
+    // console.log(response.tracks.items);
+
+
+    this.settings.updateGenre(this.selectedGenre)
+
+    //this.router.navigateByUrl('/game')
+    console.log(this.selectedGenre + " " + this.difficulty);
   }
 }

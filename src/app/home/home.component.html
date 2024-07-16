@@ -7,4 +7,14 @@
       {{ genre }}
     </option>
   </select>
+  <div>
+    Difficulty:
+    <input type="radio" name="difficulty" value="easy" (change)="onRadioChanged('easy')"/> Easy
+    <input type="radio" name="difficulty" value="medium" (change)="onRadioChanged('medium')"/> Medium
+    <input type="radio" name="difficulty" value="hard" (change)="onRadioChanged('hard')"/> Hard
+    <p>{{ difficulty }}</p>
+  </div>
+  <div>
+    <button (click)="startGame()">Start Game</button>
+  </div>
 </div>

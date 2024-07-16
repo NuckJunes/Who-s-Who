@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const AUTH_ENDPOINT =
   'https://nuod0t2zoe.execute-api.us-east-2.amazonaws.com/FT-Classroom/spotify-auth-token';
@@ -19,8 +19,15 @@ export class GameComponent implements OnInit {
   correctAnswer: string = '';
   selectedGenre: string = '';
   moreTracks: number = 0;
+  correctCount: number = 0;
+  incorrectCount: number = 0;
+  selectedOption: any = null;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -52,7 +59,7 @@ export class GameComponent implements OnInit {
   }
 
   async loadSongs() {
-    let endpoint = `https://api.spotify.com/v1/search?q=genre:${this.selectedGenre}&type=track&limit=50&market=US`;
+    let endpoint = `https://api.spotify.com/v1/search?q=genre:${this.selectedGenre}&type=track&limit=10&market=US`;
     if (this.moreTracks) {
       endpoint = endpoint + `&offset=${this.moreTracks}`;
     }
@@ -71,14 +78,17 @@ export class GameComponent implements OnInit {
     if (this.songs.length === 0) {
       this.moreTracks++;
       this.loadSongs();
+      return;
     }
-    this.currentSong = this.songs.pop();
-    while (!this.currentSong.preview_url) {
+    do {
       this.currentSong = this.songs.pop();
+    } while (this.currentSong && !this.currentSong.preview_url);
+
+    if (this.currentSong) {
+      this.correctAnswer = this.currentSong.artists[0].name;
+      this.options = this.generateOptions(this.correctAnswer);
+      this.selectedOption = null;
     }
-    this.correctAnswer = this.currentSong.artists[0].name;
-    this.options = this.generateOptions(this.correctAnswer);
-    const audio = new Audio(this.currentSong.preview_url);
   }
 
   generateOptions(correct: string): string[] {
@@ -96,17 +106,23 @@ export class GameComponent implements OnInit {
   checkAnswer(selectedOption: string) {
     if (selectedOption === this.correctAnswer) {
       alert('Correct!');
+      this.correctCount++;
     } else {
       alert('Wrong! The correct answer was ' + this.correctAnswer);
+      this.incorrectCount++;
+      if (this.incorrectCount >= 3) {
+        this.router.navigate(['/game-over']);
+        return;
+      }
     }
     this.loadNextSong();
   }
 
-  shuffle = (array: string[]) => { 
-    for (let i = array.length - 1; i > 0; i--) { 
-      const j = Math.floor(Math.random() * (i + 1)); 
-      [array[i], array[j]] = [array[j], array[i]]; 
-    } 
-    return array; 
-  }; 
+  shuffle = (array: string[]) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
 }

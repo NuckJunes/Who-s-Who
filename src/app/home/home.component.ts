@@ -87,36 +87,27 @@ export class HomeComponent implements OnInit {
 
   onRadioChanged(dif: String) {
     this.difficulty = dif;
-    this.updateSettings();
-  }
-
-  updateSettings() {
-    if (this.difficulty === 'easy') {
-      this.lives = 3;
-      this.questionNum = 4;
-    } else if (this.difficulty === 'medium') {
-      this.lives = 2;
-      this.questionNum = 6;
-    } else {
-      this.lives = 1;
-      this.questionNum = 8;
-    }
   }
 
   async startGame() {
-    // Here I will take the genre and get a list of tracks to send to game component
-    // let qString = "genre:'" + this.selectedGenre + "'";
-    // const response = await fetchFromSpotify({
-    //   token: this.token,
-    //   endpoint: "search",
-    //   params: { type: "track", q: qString}
-    // });
-    // console.log(response.tracks.items);
+    if (this.selectedGenre) {
+      this.router.navigate(['/game', this.selectedGenre]);
+    } else {
+      alert('Please select a genre');
+    }
+    // // Here I will take the genre and get a list of tracks to send to game component
+    // // let qString = "genre:'" + this.selectedGenre + "'";
+    // // const response = await fetchFromSpotify({
+    // //   token: this.token,
+    // //   endpoint: "search",
+    // //   params: { type: "track", q: qString}
+    // // });
+    // // console.log(response.tracks.items);
 
-      this.settings.updateGenre(this.selectedGenre);
-      this.settings.updateLives(this.lives);
-      this.settings.updateQuestionNum(this.questionNum);
-    //this.router.navigateByUrl('/game')
-    console.log(this.selectedGenre + ' ' + this.lives + ' ' + this.questionNum);
+    // this.settings.updateGenre(this.selectedGenre);
+    // this.settings.updateDifficulty(this.difficulty);
+
+    // //this.router.navigateByUrl('/game')
+    // console.log(this.selectedGenre + " " + this.difficulty);
   }
 }

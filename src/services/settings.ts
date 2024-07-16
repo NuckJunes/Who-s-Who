@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject, Observable, subscribeOn } from 'rxjs'
+import { HttpClient } from '@angular/common/http';
 
 interface player {
     username: String;
@@ -34,6 +35,8 @@ export class settings {
     // private livesSource = new BehaviorSubject<number>(0);
     // lives = this.livesSource.asObservable();
 
+    constructor(private http: HttpClient) {}
+
     updateGenre(newGenre: String) {
         this.genreSource.next(newGenre);
     }
@@ -61,4 +64,8 @@ export class settings {
     // updateLives(newLives: number) {
     //     this.livesSource.next(newLives);
     // }
+
+    getRankedPlayers():Observable<player[]> {
+        return this.rankedPlayerSource;
+    }
 }

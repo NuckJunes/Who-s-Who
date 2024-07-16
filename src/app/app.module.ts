@@ -8,17 +8,19 @@ import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { LeaderboardPlayerComponent } from './leaderboard/leaderboard-player/leaderboard-player.component';
+import { GameComponent } from "./game/game.component";
 import { GameOverComponent } from './game-over/game-over.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
+  { path: 'game/:genre', component: GameComponent},
   {  path: "leaderboard", component: LeaderboardComponent  },
   { path: 'game-over', component: GameOverComponent}
 ];
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LeaderboardComponent, LeaderboardPlayerComponent, GameOverComponent],
-  imports: [BrowserModule, FormsModule, RouterModule.forRoot(routes)],
+  declarations: [AppComponent, HomeComponent, LeaderboardComponent, LeaderboardPlayerComponent, GameOverComponent, GameComponent],
+  imports: [BrowserModule, FormsModule, RouterModule.forRoot(routes), HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
   exports: [RouterModule]

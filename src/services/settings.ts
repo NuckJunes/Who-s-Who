@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core'
 import { BehaviorSubject } from 'rxjs'
 
+interface player {
+    username: String;
+    score: number;
+    streak: number;
+}
+
+
 @Injectable({
     providedIn: 'root',
 })
@@ -14,6 +21,12 @@ export class settings {
 
     private usernameSource = new BehaviorSubject<String>('');
     username = this.usernameSource.asObservable();
+
+    private latestPlayerSource = new BehaviorSubject<player | undefined>(undefined);
+    latestPlayer = this.latestPlayerSource.asObservable();
+
+    private rankedPlayerSource = new BehaviorSubject<player[]>([]);
+    rankedPlayer = this.rankedPlayerSource.asObservable();
 
     // private questionNumSource = new BehaviorSubject<number>(0);
     // questionNum = this.questionNumSource.asObservable();
@@ -31,6 +44,14 @@ export class settings {
 
     updateUsername(newUsername: String) {
         this.usernameSource.next(newUsername);
+    }
+
+    updateLatestPlayer(newPlayer: player) {
+        this.latestPlayerSource.next(newPlayer);
+    }
+
+    updateRankedPlayer(players: player[]) {
+        this.rankedPlayerSource.next(players);
     }
 
     // updateQuestionNum(newQuestionNum: number) {

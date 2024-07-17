@@ -84,10 +84,10 @@ export class GameComponent implements OnInit {
   async loadSongs() {
     if (this.isLoading) return;
     this.isLoading = true;
-    let endpoint = `https://api.spotify.com/v1/search?q=genre:${this.selectedGenre}&type=track&limit=10&market=US`;
+    let endpoint = `https://api.spotify.com/v1/search?q=genre:${this.selectedGenre}&type=track&limit=50&market=US`;
     console.log('track offset: ' + this.moreTracks);
     if (this.moreTracks) {
-      endpoint = endpoint + `&offset=${this.moreTracks * 10}`;
+      endpoint = endpoint + `&offset=${this.moreTracks * 50}`;
     }
     const headers = {
       Authorization: `Bearer ${this.token}`,

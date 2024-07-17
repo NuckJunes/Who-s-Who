@@ -1,4 +1,4 @@
 <div>
     
 </div>
-<app-leaderboard-player [player]="player"></app-leaderboard-player>
+<app-leaderboard-player *ngFor="let player of playersRanked" [player]="player"></app-leaderboard-player>

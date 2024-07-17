@@ -1,3 +1,9 @@
 <h1>Game Over</h1>
 <p>You've reached the maximum number of incorrect answers.</p>
+<div>
+    <h3>Username: </h3> {{ currentPlayer.username }} <br>
+    <h3>Score: </h3> {{ currentPlayer.score }} <br>
+    <h3>Difficulty: </h3> {{ currentPlayer.difficulty }} <br>
+</div>
 <a routerLink="/">Back to Home</a>
+<a routerLink="/leaderboard">Leader Board</a>

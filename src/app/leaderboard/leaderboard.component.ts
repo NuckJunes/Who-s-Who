@@ -3,8 +3,8 @@ import { settings } from '../../services/settings';
 
 interface player {
   username: String;
+  difficulty: String;
   score: number;
-  streak: number;
 }
 
 @Component({
@@ -25,20 +25,8 @@ export class LeaderboardComponent implements OnInit {
   // Dummy objects until local storage is set up
   player1: player = {
     username: "Test1",
+    difficulty: "easy",
     score: 15,
-    streak: 3,
-  }
-
-  player2: player = {
-    username: "Test2",
-    score: 35,
-    streak: 8,
-  }
-
-  player3: player = {
-    username: "Test3",
-    score: 5,
-    streak: 0,
   }
 
   // This component will display all of the leaderboard people

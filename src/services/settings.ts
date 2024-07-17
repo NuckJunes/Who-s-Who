@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 
 interface player {
     username: String;
+    difficulty: String;
     score: number;
-    streak: number;
 }
 
 
@@ -67,5 +67,17 @@ export class settings {
 
     getRankedPlayers():Observable<player[]> {
         return this.rankedPlayerSource;
+    }
+
+    getDifficulty():Observable<String> {
+        return this.difficultySource;
+    }
+
+    getUsername():Observable<String> {
+        return this.usernameSource;
+    }
+
+    getLatestPlayer():Observable<player | undefined> {
+        return this.latestPlayerSource;
     }
 }

@@ -1,6 +1,13 @@
 import { Component, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { settings } from '../../services/settings';
+
+interface player {
+  username: String;
+  difficulty: String;
+  score: number;
+}
 
 const AUTH_ENDPOINT =
   'https://nuod0t2zoe.execute-api.us-east-2.amazonaws.com/FT-Classroom/spotify-auth-token';
@@ -22,14 +29,25 @@ export class GameComponent implements OnInit {
   correctCount: number = 0;
   incorrectCount: number = 0;
   selectedOption: any = null;
+  difficulty: String = '';
+  numQuestions: number = 0;
+  currentPlayer: player = {
+    username: '',
+    difficulty: '',
+    score: 0,
+  }
 
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private settings: settings,
   ) {}
 
   ngOnInit(): void {
+    this.settings.getDifficulty().subscribe(value => this.difficulty = value);
+    this.settings.getUsername().subscribe(value => this.currentPlayer.username = value);
+    this.checkDifficulty();
     this.route.paramMap.subscribe((params) => {
       this.selectedGenre = params.get('genre') || '';
       this.authenticate();
@@ -94,7 +112,7 @@ export class GameComponent implements OnInit {
   generateOptions(correct: string): string[] {
     const options = new Set<string>();
     options.add(correct);
-    while (options.size < 4) {
+    while (options.size < this.numQuestions) {
       const randomArtist =
         this.songs[Math.floor(Math.random() * this.songs.length)].artists[0]
           .name;
@@ -111,6 +129,9 @@ export class GameComponent implements OnInit {
       alert('Wrong! The correct answer was ' + this.correctAnswer);
       this.incorrectCount++;
       if (this.incorrectCount >= 3) {
+        this.currentPlayer.score = this.correctCount;
+        this.currentPlayer.difficulty = this.difficulty;
+        this.settings.updateLatestPlayer(this.currentPlayer);
         this.router.navigate(['/game-over']);
         return;
       }
@@ -125,4 +146,14 @@ export class GameComponent implements OnInit {
     }
     return array;
   };
+
+  checkDifficulty() {
+    if(this.difficulty === "easy") {
+      this.numQuestions = 4;
+    } else if(this.difficulty === "medium") {
+      this.numQuestions = 6;
+    } else {
+      this.numQuestions = 8;
+    }
+  }
 }

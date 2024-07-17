@@ -94,20 +94,11 @@ export class HomeComponent implements OnInit {
     } else {
       alert('Please select a genre');
     }
-    // // Here I will take the genre and get a list of tracks to send to game component
-    // // let qString = "genre:'" + this.selectedGenre + "'";
-    // // const response = await fetchFromSpotify({
-    // //   token: this.token,
-    // //   endpoint: "search",
-    // //   params: { type: "track", q: qString}
-    // // });
-    // // console.log(response.tracks.items);
-
+  
     this.settings.updateGenre(this.selectedGenre);
     this.settings.updateDifficulty(this.difficulty);
     this.settings.updateUsername(this.username);
 
-    //this.router.navigateByUrl('/game')
     console.log(this.selectedGenre + " " + this.difficulty + " " + this.username);
   }
 }

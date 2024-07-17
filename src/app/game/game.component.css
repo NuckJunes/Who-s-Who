@@ -1,0 +1,17 @@
+.page {
+    display: wrap;
+    width: 100%;
+    background-color: #1DB954;
+    padding: 30px;
+    border-radius: 8%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+   }
+
+.radio-options {
+    padding-left: 40%;
+    justify-content: left;
+    text-align: left;
+    align-items: left;
+}

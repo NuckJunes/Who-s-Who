@@ -10,16 +10,18 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { LeaderboardPlayerComponent } from './leaderboard/leaderboard-player/leaderboard-player.component';
 import { GameComponent } from "./game/game.component";
 import { GameOverComponent } from './game-over/game-over.component';
+import { TaskbarComponent } from './taskbar/taskbar.component';
 
 const routes: Routes = [
-  { path: "", component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'game/:genre', component: GameComponent},
   {  path: "leaderboard", component: LeaderboardComponent  },
-  { path: 'game-over', component: GameOverComponent}
+  { path: 'game-over', component: GameOverComponent},
+  { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LeaderboardComponent, LeaderboardPlayerComponent, GameOverComponent, GameComponent],
+  declarations: [AppComponent, HomeComponent, LeaderboardComponent, LeaderboardPlayerComponent, GameOverComponent, GameComponent, TaskbarComponent],
   imports: [BrowserModule, FormsModule, RouterModule.forRoot(routes), HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],

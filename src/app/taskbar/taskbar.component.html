@@ -1,0 +1,14 @@
+<div class="taskbar">
+    <img
+      [class.highlighted]="isHome()"
+      src="assets/home.png"
+      alt="Home"
+      (click)="navigate('home')"
+    />
+    <img
+      [class.highlighted]="isLeaderboard()"
+      src="assets/leaderboard.png"
+      alt="Leaderboard"
+      (click)="navigate('leaderboard')"
+    />
+  </div>

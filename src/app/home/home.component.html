@@ -1,23 +1,28 @@
 <div *ngIf="authLoading || configLoading">Loading...</div>
-<div *ngIf="!authLoading && !configLoading">
-  Genre:
-  <select [(ngModel)]="selectedGenre" (ngModelChange)="setGenre($event)">
-    <option [value]=""></option>
-    <option [value]="genre" *ngFor="let genre of genres">
-      {{ genre }}
-    </option>
-  </select>
-  <div>
-    Difficulty:
+<div class="page" *ngIf="!authLoading && !configLoading">
+  <div class="top-box">
+  <div class="genre">
+    <h3>Genre: </h3>
+    <select [(ngModel)]="selectedGenre" (ngModelChange)="setGenre($event)">
+      <option [value]=""></option>
+      <option [value]="genre" *ngFor="let genre of genres">
+        {{ genre }}
+      </option>
+    </select>
+  </div>
+  <div class="difficulty">
+    <h3>Difficulty: </h3>
     <input type="radio" name="difficulty" value="easy" (change)="onRadioChanged('easy')" /> Easy
     <input type="radio" name="difficulty" value="medium" (change)="onRadioChanged('medium')" /> Medium
     <input type="radio" name="difficulty" value="hard" (change)="onRadioChanged('hard')" /> Hard
     <p>{{ difficulty }}</p>
   </div>
-  <div>
+  </div>
+  <div class="username-input">
+    <h3>Username: </h3>
     <input type="text" [(ngModel)]="username">
   </div>
-  <div>
+  <div class="start-button">
     <button (click)="startGame()">Start Game</button>
   </div>
 </div>

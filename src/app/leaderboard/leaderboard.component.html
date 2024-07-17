@@ -1,4 +1,7 @@
+<h1>Leader Board</h1>
 <div>
-    
+    <app-leaderboard-player *ngFor="let player of playersRanked; let i = index" [player]="player" [rank]="i"></app-leaderboard-player>
 </div>
-<app-leaderboard-player *ngFor="let player of playersRanked" [player]="player"></app-leaderboard-player>
+<div>
+    <a routerLink="/">Back to Home</a>
+</div>

@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class LeaderboardPlayerComponent implements OnInit {
 
   @Input() player: any;
+  @Input() rank: number = 0;
 
   constructor() { }
 

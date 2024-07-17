@@ -34,5 +34,6 @@ export class LeaderboardComponent implements OnInit {
   // These contain a username and score and I set the rankings here
 
   @Input() players: player[] = [];
+  @Input() rank: number = 0;
 
 }

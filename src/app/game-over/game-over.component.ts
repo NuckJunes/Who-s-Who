@@ -45,6 +45,7 @@ export class GameOverComponent implements OnInit {
     }
     this.playersList.splice(loc, 0, this.currentPlayer);
     this.settings.updateRankedPlayer(this.playersList);
+    console.log(this.playersList);
   }
 
 }

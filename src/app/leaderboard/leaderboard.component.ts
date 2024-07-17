@@ -33,6 +33,6 @@ export class LeaderboardComponent implements OnInit {
   // Here we need to get the localstorage player objects
   // These contain a username and score and I set the rankings here
 
-  @Input() player = {username: this.player1.username, score: this.player1.score, rank: 0};
+  @Input() players: player[] = [];
 
 }

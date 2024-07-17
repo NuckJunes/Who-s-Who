@@ -31,6 +31,7 @@ export class GameComponent implements OnInit {
   selectedOption: any = null;
   difficulty: String = '';
   numQuestions: number = 0;
+  currentUsername: String = '';
   currentPlayer: player = {
     username: '',
     difficulty: '',
@@ -46,7 +47,7 @@ export class GameComponent implements OnInit {
 
   ngOnInit(): void {
     this.settings.getDifficulty().subscribe(value => this.difficulty = value);
-    this.settings.getUsername().subscribe(value => this.currentPlayer.username = value);
+    this.settings.getUsername().subscribe(value => this.currentUsername = value);
     this.checkDifficulty();
     this.route.paramMap.subscribe((params) => {
       this.selectedGenre = params.get('genre') || '';
@@ -131,6 +132,7 @@ export class GameComponent implements OnInit {
       if (this.incorrectCount >= 3) {
         this.currentPlayer.score = this.correctCount;
         this.currentPlayer.difficulty = this.difficulty;
+        this.currentPlayer.username = this.currentUsername;
         this.settings.updateLatestPlayer(this.currentPlayer);
         this.router.navigate(['/game-over']);
         return;

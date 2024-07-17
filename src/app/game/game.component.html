@@ -1,5 +1,5 @@
 <div *ngIf="currentSong">
-    <h2>Guess the artist for this song:</h2>
+    <h2>Guess the artist for this song, {{ currentPlayer.username }}:</h2>
     <audio [src]="currentSong.preview_url" controls></audio>
     <div *ngFor="let option of options">
         <input type="radio" name="options" value="option" checked="false" [(ngModel)]="selectedOption"

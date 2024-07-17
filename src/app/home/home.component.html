@@ -1,5 +1,6 @@
 <div *ngIf="authLoading || configLoading">Loading...</div>
 <div class="page" *ngIf="!authLoading && !configLoading">
+  <h1>Who's Who</h1>
   <div class="top-box">
   <div class="genre">
     <h3>Genre: </h3>
@@ -15,7 +16,6 @@
     <input type="radio" name="difficulty" value="easy" (change)="onRadioChanged('easy')" /> Easy
     <input type="radio" name="difficulty" value="medium" (change)="onRadioChanged('medium')" /> Medium
     <input type="radio" name="difficulty" value="hard" (change)="onRadioChanged('hard')" /> Hard
-    <p>{{ difficulty }}</p>
   </div>
   </div>
   <div class="username-input">

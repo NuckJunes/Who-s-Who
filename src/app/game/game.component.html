@@ -1,12 +1,14 @@
-<div *ngIf="currentSong">
-    <h2>Guess the artist for this song, {{ currentPlayer.username }}:</h2>
-    <audio [src]="currentSong.preview_url" controls></audio>
-    <div *ngFor="let option of options">
-        <input type="radio" name="options" value="option" checked="false" [(ngModel)]="selectedOption"
-            (change)="checkAnswer(option)" />
-        {{ option }}
+<div class="page">
+    <div *ngIf="currentSong">
+        <h2>Guess the artist for this song, {{ currentPlayer.username }}:</h2>
+        <audio [src]="currentSong.preview_url" controls></audio>
+        <div *ngFor="let option of options">
+            <input type="radio" name="options" value="option" checked="false" [(ngModel)]="selectedOption"
+                (change)="checkAnswer(option)" />
+            {{ option }}
+        </div>
     </div>
-</div>
-<div *ngIf="!currentSong">
-    <h2>Loading...</h2>
+    <div *ngIf="!currentSong">
+        <h2>Loading...</h2>
+    </div>
 </div>

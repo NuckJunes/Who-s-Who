@@ -89,10 +89,10 @@ export class HomeComponent implements OnInit {
   }
 
   async startGame() {
-    if (this.selectedGenre) {
+    if (this.selectedGenre && this.username && this.difficulty) {
       this.router.navigate(['/game', this.selectedGenre]);
     } else {
-      alert('Please select a genre');
+      alert('Please select a genre, difficulty and enter your username');
     }
   
     this.settings.updateGenre(this.selectedGenre);

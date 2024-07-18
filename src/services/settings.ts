@@ -26,7 +26,7 @@ export class settings {
     private latestPlayerSource = new BehaviorSubject<player | undefined>(undefined);
     latestPlayer = this.latestPlayerSource.asObservable();
 
-    private rankedPlayerSource = new BehaviorSubject<player[]>([]);
+    private rankedPlayerSource = new BehaviorSubject<player[]>(this.loadRankedPlayers());
     rankedPlayer = this.rankedPlayerSource.asObservable();
 
     // private questionNumSource = new BehaviorSubject<number>(0);
@@ -55,6 +55,7 @@ export class settings {
 
     updateRankedPlayer(players: player[]) {
         this.rankedPlayerSource.next(players);
+        this.saveRankedPlayers(players);
     }
 
     // updateQuestionNum(newQuestionNum: number) {
@@ -79,5 +80,14 @@ export class settings {
 
     getLatestPlayer():Observable<player | undefined> {
         return this.latestPlayerSource;
+    }
+
+    private saveRankedPlayers(players: player[]): void {
+        localStorage.setItem('rankedPlayers', JSON.stringify(players));
+    }
+
+    private loadRankedPlayers(): player[] {
+        const players = localStorage.getItem('rankedPlayers');
+        return players ? JSON.parse(players) : [];
     }
 }

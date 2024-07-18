@@ -1,3 +1,14 @@
+<div class="score-bar">
+    <div class="lives">
+        <h2>Lives: {{ lives }} </h2>
+    </div>
+    <div class="score">
+        <h2>Score: {{ currentPlayer.score }}</h2>
+    </div>
+    <div class="streak">
+        <h2>Streak: X{{ streakMultiplier }}</h2>
+    </div>
+</div>
 <div class="page">
     <div *ngIf="currentSong">
         <h2>Guess the artist for this song, {{ currentPlayer.username }}:</h2>

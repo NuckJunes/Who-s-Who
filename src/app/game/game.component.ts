@@ -37,6 +37,10 @@ export class GameComponent implements OnInit {
     score: 0,
   };
   isLoading: boolean = false;
+  lives: number = 0;
+  totalLives: number = 0;
+  streak: number = 0;
+  streakMultiplier: number = 1;
 
   constructor(
     private http: HttpClient,
@@ -159,11 +163,16 @@ export class GameComponent implements OnInit {
   checkAnswer(selectedOption: string) {
     if (selectedOption === this.correctAnswer) {
       alert('Correct!');
-      this.currentPlayer.score++;
+      this.currentPlayer.score += this.streakMultiplier;
+      this.streak++;
+      this.calculateStreakMultiplier();
     } else {
       alert('Wrong! The correct answer was ' + this.correctAnswer);
       this.incorrectCount++;
-      if (this.incorrectCount >= 3) {
+      this.lives--;
+      this.streak = 0;
+      this.streakMultiplier = 1;
+      if (this.incorrectCount >= this.totalLives) {
         this.settings.updateLatestPlayer(this.currentPlayer);
         this.router.navigate(['/game-over']);
         return;
@@ -183,10 +192,22 @@ export class GameComponent implements OnInit {
   checkDifficulty() {
     if (this.currentPlayer.difficulty === 'easy') {
       this.numQuestions = 4;
+      this.lives = 3;
+      this.totalLives = 3;
     } else if (this.currentPlayer.difficulty === 'medium') {
       this.numQuestions = 6;
+      this.lives = 2;
+      this.totalLives = 2;
     } else {
       this.numQuestions = 8;
+      this.lives = 1;
+      this.totalLives = 1;
+    }
+  }
+
+  calculateStreakMultiplier() {
+    if(this.streak % 5 === 0) {
+      this.streakMultiplier++;
     }
   }
 }

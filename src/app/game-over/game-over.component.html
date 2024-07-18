@@ -6,6 +6,6 @@
     <h3>Score: </h3> {{ currentPlayer.score }} <br>
     <h3>Difficulty: </h3> {{ currentPlayer.difficulty }} <br>
 </div>
-<a routerLink="/">Back to Home</a> &ensp;
-<a routerLink="/leaderboard">Leader Board</a>
+    <button (click)="returnHome()">Back to Home</button>
+    <button (click)="leaderboard()">Leader Board</button>
 </div>

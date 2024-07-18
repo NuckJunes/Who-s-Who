@@ -4,6 +4,6 @@
         <app-leaderboard-player class="spot" *ngFor="let player of playersRanked; let i = index" [player]="player" [rank]="i + 1"></app-leaderboard-player>
     </div>
     <div>
-        <a routerLink="/">Back to Home</a>
+        <button (click)="returnHome()">Back to Home</button>
     </div>
 </div>

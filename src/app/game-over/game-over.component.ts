@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { settings } from '../../services/settings';
+import { Router } from '@angular/router';
 
 interface player {
   username: String;
@@ -23,7 +24,7 @@ export class GameOverComponent implements OnInit {
   playersList: player[] = [];
   
 
-  constructor(private settings: settings) { }
+  constructor(private settings: settings, private router: Router) { }
 
   ngOnInit(): void {
     this.settings.getLatestPlayer().subscribe(value => { if(value !== undefined) {this.currentPlayer = value} });
@@ -48,4 +49,11 @@ export class GameOverComponent implements OnInit {
     console.log(this.playersList);
   }
 
+  returnHome() {
+    this.router.navigate(['/home']);
+  }
+
+  leaderboard() {
+    this.router.navigate(['/leaderboard']);
+  }
 }

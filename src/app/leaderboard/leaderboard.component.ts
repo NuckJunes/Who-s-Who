@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { settings } from '../../services/settings';
+import { Router } from '@angular/router';
 
 interface player {
   username: String;
@@ -16,7 +17,7 @@ export class LeaderboardComponent implements OnInit {
 
   playersRanked: player[] = [];
 
-  constructor(private settings: settings) { }
+  constructor(private settings: settings, private router: Router) { }
 
   ngOnInit(): void {
     this.settings.getRankedPlayers().subscribe(value => this.playersRanked = value);
@@ -36,4 +37,8 @@ export class LeaderboardComponent implements OnInit {
   @Input() players: player[] = [];
   @Input() rank: number = 0;
 
+
+  returnHome() {
+    this.router.navigate(['/home']);
+  }
 }

@@ -5,6 +5,9 @@ body {
     background-color: black;
     align-items: center;
     justify-content: center;
+    font-family: "Libre Franklin", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
 }
 
 app-root {

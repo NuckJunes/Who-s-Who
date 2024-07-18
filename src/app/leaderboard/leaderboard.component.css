@@ -8,3 +8,12 @@
     align-items: center;
     text-align: center;
    }
+
+   .spot {
+    margin: 5px;
+   }
+
+   .ranks {
+    height: 100%;
+    overflow-y: auto;
+   }

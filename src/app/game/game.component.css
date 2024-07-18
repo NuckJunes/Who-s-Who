@@ -51,3 +51,11 @@
     text-align: left;
     align-items: left;
 }
+
+label:hover {
+    font-weight: bold;
+}
+
+.buttons {
+    display: none;
+}

@@ -29,23 +29,20 @@ export class settings {
     private rankedPlayerSource = new BehaviorSubject<player[]>(this.loadRankedPlayers());
     rankedPlayer = this.rankedPlayerSource.asObservable();
 
-    // private questionNumSource = new BehaviorSubject<number>(0);
-    // questionNum = this.questionNumSource.asObservable();
-
-    // private livesSource = new BehaviorSubject<number>(0);
-    // lives = this.livesSource.asObservable();
-
     constructor(private http: HttpClient) {}
 
     updateGenre(newGenre: String) {
+        localStorage.setItem("genreValue", newGenre.toString());
         this.genreSource.next(newGenre);
     }
 
     updateDifficulty(newDifficulty: String) {
+        localStorage.setItem("difficultyValue", newDifficulty.toString());
         this.difficultySource.next(newDifficulty);
     }
 
     updateUsername(newUsername: String) {
+        localStorage.setItem("usernameValue", newUsername.toString());
         this.usernameSource.next(newUsername);
     }
 
@@ -57,14 +54,6 @@ export class settings {
         this.rankedPlayerSource.next(players);
         this.saveRankedPlayers(players);
     }
-
-    // updateQuestionNum(newQuestionNum: number) {
-    //     this.questionNumSource.next(newQuestionNum);
-    // }
-
-    // updateLives(newLives: number) {
-    //     this.livesSource.next(newLives);
-    // }
 
     getRankedPlayers():Observable<player[]> {
         return this.rankedPlayerSource;

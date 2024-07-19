@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   username: String = "";
 
   ngOnInit(): void {
+    this.loadSettings();
     this.authLoading = true;
     const storedTokenString = localStorage.getItem(TOKEN_KEY);
     if (storedTokenString) {
@@ -88,8 +89,15 @@ export class HomeComponent implements OnInit {
     this.difficulty = dif;
   }
 
+  loadSettings() {
+    this.selectedGenre = localStorage.getItem("genreValue") || "";
+    this.difficulty = localStorage.getItem("difficultyValue") || "";
+    this.username = localStorage.getItem("usernameValue") || "";
+  }
+
   async startGame() {
     if (this.selectedGenre && this.username && this.difficulty) {
+      // Save values to localstorage
       this.router.navigate(['/game', this.selectedGenre]);
     } else {
       alert('Please select a genre, difficulty and enter your username');

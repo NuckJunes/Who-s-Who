@@ -23,13 +23,6 @@ export class LeaderboardComponent implements OnInit {
     this.settings.getRankedPlayers().subscribe(value => this.playersRanked = value);
   }
 
-  // Dummy objects until local storage is set up
-  player1: player = {
-    username: "Test1",
-    difficulty: "easy",
-    score: 15,
-  }
-
   // This component will display all of the leaderboard people
   // Here we need to get the localstorage player objects
   // These contain a username and score and I set the rankings here
